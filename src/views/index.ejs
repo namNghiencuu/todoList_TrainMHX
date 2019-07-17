@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <title> ToDo App </title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+  <script src="lib/jquery/src/jquery-3.3.1.slim.min.js"></script>
+  <script src="lib/popper/popper.min.js"></script>
+  <script src="lib/bootstrap/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <form action="/addtask" method="POST">
+      <div class="bg-dark" style="padding: 10px;">
+        <h2 class="text-light"> A Simple ToDo List App </h2>
+        <div class="input-group">
+          <input type="text" name="newtask" class="form-control" placeholder="add new task">
+          <div class="input-group-append">
+            <button class="btn btn-outline-light"> Add Task </button>
+          </div>
+        </div>
+        <% if(typeof todoList != "undefined" && todoList.length > 0) {%>
+        <h2 class="text-light"> Added Task </h2>
+        <% for( var i = 0; i < todoList.length; i++){ %>
+        <li class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" name="completedTask" value="<%- todoList[i].id %>" />
+            </div>
+          </div>
+          <div class="input-group-text form-control">
+            <%- todoList[i].task %>
+          </div>
+        </li>
+        <% } %>
+        <%}%>
+        <button formaction="/complete" type="submit" class="btn btn-outline-light"> Complete </button>
+      <% if(typeof complete != "undefined") {%>
+        <h2 class="text-light"> Completed task </h2>
+        <% for(var i = 0; i < complete.length; i++){ %>
+        <li class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" checked disabled />
+            </div>
+          </div>
+          <div class="input-group-text form-control">
+            <%- complete[i].task %>
+          </div>
+        </li>
+        <% } %>
+        <%}%>
+      </div>
+
+    </form>
+
+  </div>
+</body>
+
+</html>
